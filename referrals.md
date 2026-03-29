@@ -10,21 +10,39 @@ Registration on Nexora is **invite-only** — a valid referral code is required 
 
 ## Registration Flow
 
+```mermaid
+sequenceDiagram
+    participant R as Referrer
+    participant N as New User
+    participant B as Backend API
+
+    R->>N: Shares referral code (e.g. ABC12345)
+    N->>B: POST /user/register\n{ username, referral_code: "ABC12345" }
+    B->>B: Validate referral code exists
+    B->>B: Check code not suspended
+    alt Valid code
+        B->>B: Create user account
+        B->>B: Record referral relationship
+        B-->>N: Account created\n+ new referral code generated
+        Note over B,R: Referrer earns bonus\nwhen new user becomes active
+    else Invalid code
+        B-->>N: 400 - Invalid referral code
+    end
 ```
-New user gets a referral code from an existing user
-                    │
-                    ▼
-python cli/main.py register --ref THEIR_CODE
-                    │
-                    ▼
-Backend validates the referral code
-                    │
-                    ▼
-New user account created
-Referral relationship recorded
-                    │
-                    ▼
-Referrer receives bonus points when referred user becomes active
+
+---
+
+## Referral Reward Flow
+
+```mermaid
+flowchart TD
+    A([Referred user runs node]) --> B[Referred user earns points]
+    B --> C[Backend detects active referral]
+    C --> D[Calculate referral bonus]
+    D --> E([Bonus credited to referrer account])
+
+    style A fill:#7c3aed,color:#fff,stroke:none
+    style E fill:#10b981,color:#fff,stroke:none
 ```
 
 ---

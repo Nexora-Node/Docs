@@ -34,45 +34,40 @@ Points are calculated and credited server-side after each valid heartbeat. The b
 
 ## Points Flow
 
-```
-Node sends heartbeat
-        │
-        ▼
-Backend validates heartbeat
-        │
-        ▼
-Uptime delta calculated
-        │
-        ▼
-points += uptime_delta / 60
-total_earned += uptime_delta / 60
-        │
-        ▼
-Points available for claim
+```mermaid
+flowchart TD
+    A([Node sends heartbeat]) --> B{Heartbeat valid?}
+    B -->|No| C([Rejected - 0 points])
+    B -->|Yes| D[Calculate uptime delta]
+    D --> E[points += delta / 60\ntotal_earned += delta / 60]
+    E --> F[(Update database)]
+    F --> G([Points available for claim])
+
+    style A fill:#7c3aed,color:#fff,stroke:none
+    style C fill:#ef4444,color:#fff,stroke:none
+    style G fill:#10b981,color:#fff,stroke:none
+    style B fill:#f59e0b,color:#000,stroke:none
 ```
 
 ---
 
 ## Claim Mechanism
 
-When you're ready to convert your points into rewards, you submit a claim request.
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant C as CLI / API
+    participant B as Backend
+    participant D as Database
 
-**Endpoint:** `POST /points/claim`
-
-```json
-{
-  "username": "your_username"
-}
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "message": "Successfully claimed 50.50 points",
-  "points_claimed": 50.5
-}
+    U->>C: POST /points/claim\n{ username }
+    C->>B: Forward claim request
+    B->>D: Read current points balance
+    D-->>B: points = 120.5
+    B->>D: Reset points to 0\nRecord claim history
+    D-->>B: OK
+    B-->>C: { success: true, points_claimed: 120.5 }
+    C-->>U: Successfully claimed 120.50 points
 ```
 
 After a successful claim:
