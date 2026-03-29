@@ -38,8 +38,6 @@ timeline
 
 > ✅ Completed
 
-The core infrastructure is live. Users can register, run nodes, earn points, and refer others.
-
 ```mermaid
 graph LR
     A[CLI Node] --> B[FastAPI Backend]
@@ -73,8 +71,6 @@ graph LR
 
 > 🔄 In Progress
 
-Stabilizing the network, improving the task system, and opening to a wider audience.
-
 ```mermaid
 graph LR
     A[Production VPS] --> B[Stable Backend]
@@ -104,8 +100,6 @@ graph LR
 ## Phase 3 — Scaling and Value Layer
 
 > 🔜 Planned
-
-Making the network more valuable, more resilient, and ready for token integration.
 
 ```mermaid
 graph TD
@@ -141,8 +135,6 @@ graph TD
 ## Phase 4 — Ecosystem
 
 > 🔮 Future
-
-Opening Nexora to third-party builders and moving toward decentralization.
 
 ```mermaid
 graph TD

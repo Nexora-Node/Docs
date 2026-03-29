@@ -14,9 +14,9 @@ Registration on Nexora is **invite-only** — a valid referral code is required 
 flowchart TD
     A[Referrer shares referral code] --> B[New user runs register command]
     B --> C[Backend validates referral code]
-    C --> D{Code valid?}
-    D -->|No| E[Registration rejected]
-    D -->|Yes| F[User account created]
+    C --> D{Code check}
+    D --> E[Registration rejected - invalid code]
+    D --> F[User account created]
     F --> G[Referral relationship recorded]
     G --> H[New referral code generated for user]
     H --> I[Referrer earns bonus when user becomes active]
@@ -63,9 +63,9 @@ flowchart TD
 
 ## Reward Distribution
 
-When a referred user earns points through uptime, a portion is credited to the referrer as a bonus. This incentivizes users to invite genuine, active participants rather than inactive accounts.
+When a referred user earns points through uptime, a portion is credited to the referrer as a bonus.
 
-> **Note:** Exact referral reward rates will be published as the reward system matures. The current implementation records the referral relationship and is designed to support bonus distribution.
+> **Note:** Exact referral reward rates will be published as the reward system matures.
 
 ---
 

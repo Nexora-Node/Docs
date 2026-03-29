@@ -6,13 +6,13 @@ The heartbeat is the core mechanism that proves a node is alive and active. Ever
 
 ```mermaid
 flowchart TD
-    A[CLI sends POST /node/heartbeat] --> B{Interval 20s or more?}
-    B -->|No| C[Rejected - spam]
-    B -->|Yes| D{Uptime delta realistic?}
-    D -->|No| E[Rejected - manipulation]
-    D -->|Yes| F{Node registered?}
-    F -->|No| G[Rejected - unknown node]
-    F -->|Yes| H[Update last_seen and uptime]
+    A[CLI sends POST /node/heartbeat] --> B{Interval check}
+    B --> C[Rejected - interval too short]
+    B --> D{Uptime delta check}
+    D --> E[Rejected - manipulation detected]
+    D --> F{Node registration check}
+    F --> G[Rejected - unknown node]
+    F --> H[Update last_seen and uptime]
     H --> I[Calculate and credit points]
     I --> J[Return 200 OK]
 
@@ -42,8 +42,8 @@ flowchart TD
     B --> C[Node executes task locally]
     C --> D[Node submits result to backend]
     D --> E{Backend validates result}
-    E -->|Valid| F[Points credited to account]
-    E -->|Invalid| G[Rejected - no reward]
+    E --> F[Points credited to account]
+    E --> G[Rejected - no reward]
 
     style A fill:#fff,stroke:#333,color:#000
     style B fill:#fff,stroke:#333,color:#000
@@ -63,16 +63,16 @@ Every heartbeat goes through a full validation pipeline before any state is upda
 ```mermaid
 flowchart TD
     A[Heartbeat received] --> B{Node registered?}
-    B -->|No| B1[Reject]
-    B -->|Yes| C{Device owns node?}
-    C -->|No| C1[Reject]
-    C -->|Yes| D{Interval 20s or more?}
-    D -->|No| D1[Reject - spam]
-    D -->|Yes| E{Uptime delta realistic?}
-    E -->|No| E1[Reject - manipulation]
-    E -->|Yes| F{Device has 2 nodes or fewer?}
-    F -->|No| F1[Reject - limit exceeded]
-    F -->|Yes| G[Valid - update state and credit points]
+    B --> B1[Reject - not registered]
+    B --> C{Device owns node?}
+    C --> C1[Reject - ownership mismatch]
+    C --> D{Interval 20s or more?}
+    D --> D1[Reject - spam detected]
+    D --> E{Uptime delta realistic?}
+    E --> E1[Reject - manipulation]
+    E --> F{Device has 2 nodes or fewer?}
+    F --> F1[Reject - limit exceeded]
+    F --> G[Valid - update state and credit points]
 
     style A fill:#fff,stroke:#333,color:#000
     style B fill:#fff,stroke:#333,color:#000
@@ -95,11 +95,11 @@ flowchart TD
 ```mermaid
 flowchart TD
     A([Start]) --> B[REGISTERED]
-    B -->|CLI start| C[RUNNING]
-    C -->|CLI stop| D[STOPPED]
-    C -->|Heartbeat timeout| E[INACTIVE]
-    D -->|CLI start| C
-    E -->|CLI start| C
+    B --> C[RUNNING - after CLI start]
+    C --> D[STOPPED - after CLI stop]
+    C --> E[INACTIVE - heartbeat timeout]
+    D --> C
+    E --> C
 
     style A fill:#fff,stroke:#333,color:#000
     style B fill:#fff,stroke:#333,color:#000

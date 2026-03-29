@@ -2,15 +2,13 @@
 
 ## High-Level Architecture
 
-Nexora is composed of three main layers that work together to validate activity and distribute rewards.
-
 ```mermaid
 graph TD
     A[User Device] --> B[CLI Node]
     B --> C[Backend API]
     C --> D{Anti-Cheat Validator}
-    D -->|Pass| E[Reward Engine]
-    D -->|Fail| F[Rejected]
+    D --> E[Reward Engine]
+    D --> F[Rejected]
     E --> G[(Database)]
     G --> H[User Points Balance]
 
@@ -38,12 +36,12 @@ flowchart TD
     B --> C[Node starts]
     C --> D[Send heartbeat every 30s]
     D --> E{Backend validates}
-    E -->|Valid| F[Calculate points]
-    E -->|Invalid| G[Heartbeat rejected]
+    E --> F[Calculate points - if valid]
+    E --> G[Heartbeat rejected - if invalid]
     F --> H[Credit points to account]
     H --> I{Ready to claim?}
-    I -->|Yes| J[Claim points]
-    I -->|No| D
+    I --> J[Claim points - when ready]
+    I --> D
 
     style A fill:#fff,stroke:#333,color:#000
     style B fill:#fff,stroke:#333,color:#000
@@ -67,8 +65,6 @@ Nexora uses a **Proof-of-Activity (PoA)** model. Unlike Proof-of-Work (mining), 
 2. **Consistent** — uptime increments are realistic and not artificially inflated
 3. **Unique** — the device is not running more nodes than allowed
 4. **Honest** — heartbeat timing and uptime values pass all validation checks
-
-A node earns points simply by staying online and behaving within the rules. The longer and more consistently a node runs, the more it earns.
 
 ---
 

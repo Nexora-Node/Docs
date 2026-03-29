@@ -10,8 +10,6 @@ points = uptime_seconds / 60
 
 For every **1 minute** of validated uptime, you earn **1 point**.
 
-Points are calculated and credited server-side after each valid heartbeat. The backend tracks two values per user:
-
 | Field | Description |
 |---|---|
 | `points` | Current claimable balance |
@@ -36,9 +34,9 @@ Points are calculated and credited server-side after each valid heartbeat. The b
 
 ```mermaid
 flowchart TD
-    A[Node sends heartbeat] --> B{Heartbeat valid?}
-    B -->|No| C[Rejected - 0 points]
-    B -->|Yes| D[Calculate uptime delta]
+    A[Node sends heartbeat] --> B{Heartbeat check}
+    B --> C[Rejected - 0 points]
+    B --> D[Calculate uptime delta]
     D --> E[Add delta divided by 60 to points balance]
     E --> F[Update total earned in database]
     F --> G[Points available for claim]
@@ -79,19 +77,15 @@ After a successful claim:
 
 ## Checking Your Points
 
-Use the CLI status command:
-
 ```bash
 python cli/main.py status
 ```
 
-Or query the API directly:
+Or via API:
 
 ```
 GET /points/{username}
 ```
-
-Response:
 
 ```json
 {
@@ -105,6 +99,4 @@ Response:
 
 ## Future: Points to Token Conversion
 
-> **Note:** Token integration is planned for Phase 3. The current system uses points as an internal reward currency. Conversion rates and mechanisms will be announced when token integration is ready.
-
-The claim system is designed with future token conversion in mind. When token integration launches, claimed points will be convertible at a defined rate.
+> **Note:** Token integration is planned for Phase 3. Conversion rates and mechanisms will be announced when token integration is ready.

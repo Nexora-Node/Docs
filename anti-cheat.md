@@ -8,8 +8,6 @@ Nexora's anti-cheat system ensures that rewards are distributed fairly and that 
 
 ### Basic Layer
 
-These checks run on every heartbeat and node registration:
-
 | Check | Rule | Action on Violation |
 |---|---|---|
 | Node limit | Max 2 nodes per device | Registration rejected |
@@ -20,8 +18,6 @@ These checks run on every heartbeat and node registration:
 ### Advanced Layer
 
 > **Note:** Advanced detection is being expanded in Phase 3.
-
-The advanced layer analyzes behavioral patterns over time:
 
 - **Uptime anomalies** — detecting uptime values that are statistically impossible
 - **Heartbeat pattern analysis** — identifying bots sending heartbeats at unnaturally precise intervals
@@ -36,14 +32,14 @@ The advanced layer analyzes behavioral patterns over time:
 flowchart TD
     A[Suspicious signal detected] --> B[Severity assessment]
     B --> C{Severity level}
-    C -->|Low| D[Warning issued to account]
-    C -->|Medium| E[Reward reduction applied]
-    C -->|High| F{Type of abuse}
-    F -->|Automated or bot| G[Shadow ban]
-    F -->|Confirmed fraud| H[Account suspension]
+    C --> D[Low - Warning issued]
+    C --> E[Medium - Reward reduction]
+    C --> F{High - Type of abuse}
+    F --> G[Shadow ban - automated or bot]
+    F --> H[Account suspension - confirmed fraud]
     D --> I[Activity monitored for repeat violations]
-    I -->|Repeated| E
-    E -->|Escalated| F
+    I --> E
+    E --> F
 
     style A fill:#fff,stroke:#333,color:#000
     style B fill:#fff,stroke:#333,color:#000
@@ -78,9 +74,9 @@ A shadow-banned account continues to operate normally from the user's perspectiv
 ```mermaid
 flowchart LR
     A[Node sends heartbeat] --> B[Backend accepts request]
-    B --> C{Account shadow banned?}
-    C -->|No| D[Points credited normally]
-    C -->|Yes| E[Request accepted - 0 points credited]
+    B --> C{Shadow ban check}
+    C --> D[Points credited normally - not banned]
+    C --> E[Request accepted - 0 points - banned]
 
     style A fill:#fff,stroke:#333,color:#000
     style B fill:#fff,stroke:#333,color:#000
