@@ -39,14 +39,17 @@ flowchart TD
     A([Node sends heartbeat]) --> B{Heartbeat valid?}
     B -->|No| C([Rejected - 0 points])
     B -->|Yes| D[Calculate uptime delta]
-    D --> E[points += delta / 60\ntotal_earned += delta / 60]
+    D --> E[Add delta divided by 60 to points\nAdd to total earned]
     E --> F[(Update database)]
     F --> G([Points available for claim])
 
-    style A fill:#7c3aed,color:#fff,stroke:none
-    style C fill:#ef4444,color:#fff,stroke:none
-    style G fill:#10b981,color:#fff,stroke:none
-    style B fill:#f59e0b,color:#000,stroke:none
+    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style B fill:#78350f,stroke:#78350f,color:#fff
+    style C fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style D fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style E fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style F fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style G fill:#14532d,stroke:#14532d,color:#fff
 ```
 
 ---
@@ -56,18 +59,15 @@ flowchart TD
 ```mermaid
 sequenceDiagram
     participant U as User
-    participant C as CLI / API
     participant B as Backend
     participant D as Database
 
-    U->>C: POST /points/claim\n{ username }
-    C->>B: Forward claim request
+    U->>B: POST /points/claim
     B->>D: Read current points balance
     D-->>B: points = 120.5
-    B->>D: Reset points to 0\nRecord claim history
+    B->>D: Reset points to 0 and record claim
     D-->>B: OK
-    B-->>C: { success: true, points_claimed: 120.5 }
-    C-->>U: Successfully claimed 120.50 points
+    B-->>U: Successfully claimed 120.50 points
 ```
 
 After a successful claim:
@@ -103,7 +103,7 @@ Response:
 
 ---
 
-## Future: Points → Token Conversion
+## Future: Points to Token Conversion
 
 > **Note:** Token integration is planned for Phase 3. The current system uses points as an internal reward currency. Conversion rates and mechanisms will be announced when token integration is ready.
 

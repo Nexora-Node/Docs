@@ -36,20 +36,26 @@ The advanced layer analyzes behavioral patterns over time:
 flowchart TD
     A([Suspicious signal detected]) --> B[Severity assessment]
     B --> C{Severity level}
-    C -->|Low| D[Warning issued\nto account]
-    C -->|Medium| E[Reward reduction\napplied]
+    C -->|Low| D[Warning issued]
+    C -->|Medium| E[Reward reduction applied]
     C -->|High| F[Immediate action]
     F --> G{Type of abuse}
-    G -->|Automated / bot| H([Shadow ban])
+    G -->|Automated or bot| H([Shadow ban])
     G -->|Confirmed fraud| I([Account suspension])
-    D --> J[Activity monitored\nfor repeat violations]
+    D --> J[Activity monitored]
     J -->|Repeated| E
     E -->|Escalated| F
 
-    style A fill:#f59e0b,color:#000,stroke:none
-    style H fill:#7c3aed,color:#fff,stroke:none
-    style I fill:#ef4444,color:#fff,stroke:none
-    style D fill:#2563eb,color:#fff,stroke:none
+    style A fill:#78350f,stroke:#78350f,color:#fff
+    style B fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style C fill:#78350f,stroke:#78350f,color:#fff
+    style D fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style E fill:#713f12,stroke:#713f12,color:#fff
+    style F fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style G fill:#78350f,stroke:#78350f,color:#fff
+    style H fill:#3b0764,stroke:#3b0764,color:#fff
+    style I fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style J fill:#1e293b,stroke:#475569,color:#cbd5e1
 ```
 
 ---
@@ -75,13 +81,16 @@ This approach is intentional: it prevents bad actors from immediately detecting 
 
 ```mermaid
 flowchart LR
-    A[Node sends heartbeat] --> B[Backend accepts it]
+    A[Node sends heartbeat] --> B[Backend accepts request]
     B --> C{Account shadow banned?}
     C -->|No| D([Points credited normally])
-    C -->|Yes| E([Request accepted\nbut 0 points credited])
+    C -->|Yes| E([Request accepted - 0 points])
 
-    style D fill:#10b981,color:#fff,stroke:none
-    style E fill:#6b7280,color:#fff,stroke:none
+    style A fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style B fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style C fill:#78350f,stroke:#78350f,color:#fff
+    style D fill:#14532d,stroke:#14532d,color:#fff
+    style E fill:#3b0764,stroke:#3b0764,color:#fff
 ```
 
 ---

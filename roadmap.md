@@ -45,17 +45,17 @@ graph LR
     A[CLI Node] --> B[FastAPI Backend]
     B --> C[Reward Engine]
     B --> D[Referral System]
-    B --> E[Anti-Cheat Basic]
+    B --> E[Anti-Cheat]
     A --> F[Device Fingerprint]
     A --> G[Heartbeat 30s]
 
-    style A fill:#10b981,color:#fff,stroke:none
-    style B fill:#10b981,color:#fff,stroke:none
-    style C fill:#10b981,color:#fff,stroke:none
-    style D fill:#10b981,color:#fff,stroke:none
-    style E fill:#10b981,color:#fff,stroke:none
-    style F fill:#10b981,color:#fff,stroke:none
-    style G fill:#10b981,color:#fff,stroke:none
+    style A fill:#166534,stroke:#166534,color:#fff
+    style B fill:#166534,stroke:#166534,color:#fff
+    style C fill:#166534,stroke:#166534,color:#fff
+    style D fill:#166534,stroke:#166534,color:#fff
+    style E fill:#166534,stroke:#166534,color:#fff
+    style F fill:#166534,stroke:#166534,color:#fff
+    style G fill:#166534,stroke:#166534,color:#fff
 ```
 
 | Milestone | Status |
@@ -85,14 +85,14 @@ graph LR
     E --> G[Points UI]
     B --> H[Public Beta]
 
-    style A fill:#2563eb,color:#fff,stroke:none
-    style B fill:#2563eb,color:#fff,stroke:none
-    style C fill:#f59e0b,color:#000,stroke:none
-    style D fill:#f59e0b,color:#000,stroke:none
-    style E fill:#f59e0b,color:#000,stroke:none
-    style F fill:#f59e0b,color:#000,stroke:none
-    style G fill:#f59e0b,color:#000,stroke:none
-    style H fill:#f59e0b,color:#000,stroke:none
+    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style B fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style C fill:#1d4ed8,stroke:#1d4ed8,color:#fff
+    style D fill:#1d4ed8,stroke:#1d4ed8,color:#fff
+    style E fill:#1d4ed8,stroke:#1d4ed8,color:#fff
+    style F fill:#1d4ed8,stroke:#1d4ed8,color:#fff
+    style G fill:#1d4ed8,stroke:#1d4ed8,color:#fff
+    style H fill:#1d4ed8,stroke:#1d4ed8,color:#fff
 ```
 
 | Milestone | Status |
@@ -113,7 +113,8 @@ Making the network more valuable, more resilient, and ready for token integratio
 
 ```mermaid
 graph TD
-    A[Task Marketplace] <-->|Assign / Submit| B[Node Network]
+    A[Task Marketplace] --> B[Node Network]
+    B --> A
     B --> C[Performance Score]
     C --> D[Bonus Multipliers]
     A --> E[Result Validation]
@@ -122,15 +123,15 @@ graph TD
     D --> H[Token Integration]
     H --> I[Points to Token Conversion]
 
-    style A fill:#7c3aed,color:#fff,stroke:none
-    style B fill:#7c3aed,color:#fff,stroke:none
-    style H fill:#7c3aed,color:#fff,stroke:none
-    style I fill:#7c3aed,color:#fff,stroke:none
-    style C fill:#6b7280,color:#fff,stroke:none
-    style D fill:#6b7280,color:#fff,stroke:none
-    style E fill:#6b7280,color:#fff,stroke:none
-    style F fill:#6b7280,color:#fff,stroke:none
-    style G fill:#6b7280,color:#fff,stroke:none
+    style A fill:#3b0764,stroke:#3b0764,color:#fff
+    style B fill:#3b0764,stroke:#3b0764,color:#fff
+    style C fill:#4c1d95,stroke:#4c1d95,color:#fff
+    style D fill:#4c1d95,stroke:#4c1d95,color:#fff
+    style E fill:#4c1d95,stroke:#4c1d95,color:#fff
+    style F fill:#4c1d95,stroke:#4c1d95,color:#fff
+    style G fill:#4c1d95,stroke:#4c1d95,color:#fff
+    style H fill:#6d28d9,stroke:#6d28d9,color:#fff
+    style I fill:#6d28d9,stroke:#6d28d9,color:#fff
 ```
 
 | Milestone | Status |
@@ -158,13 +159,13 @@ graph TD
     E --> F[Community Governance]
     F --> G[Node Operator Voting]
 
-    style A fill:#0f172a,color:#a78bfa,stroke:#7c3aed
-    style B fill:#0f172a,color:#a78bfa,stroke:#7c3aed
-    style C fill:#0f172a,color:#a78bfa,stroke:#7c3aed
-    style D fill:#0f172a,color:#a78bfa,stroke:#7c3aed
-    style E fill:#0f172a,color:#a78bfa,stroke:#7c3aed
-    style F fill:#0f172a,color:#a78bfa,stroke:#7c3aed
-    style G fill:#0f172a,color:#a78bfa,stroke:#7c3aed
+    style A fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
+    style B fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
+    style C fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
+    style D fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
+    style E fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
+    style F fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
+    style G fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
 ```
 
 | Milestone | Status |
@@ -186,24 +187,24 @@ gantt
     axisFormat %b %Y
 
     section Phase 1 · Foundation
-    CLI Node & Backend       :done,    p1a, 2024-10, 2024-12
-    Reward & Referral System :done,    p1b, 2024-10, 2024-12
-    Basic Anti-Cheat         :done,    p1c, 2024-11, 2024-12
+    CLI Node and Backend         :done,    p1a, 2024-10, 2024-12
+    Reward and Referral System   :done,    p1b, 2024-10, 2024-12
+    Basic Anti-Cheat             :done,    p1c, 2024-11, 2024-12
 
     section Phase 2 · Expansion
-    VPS Deployment           :active,  p2a, 2025-01, 2025-02
-    Task System v2           :active,  p2b, 2025-01, 2025-03
-    Web Dashboard            :         p2c, 2025-02, 2025-04
-    Public Beta              :         p2d, 2025-03, 2025-05
+    VPS Deployment               :active,  p2a, 2025-01, 2025-02
+    Task System v2               :active,  p2b, 2025-01, 2025-03
+    Web Dashboard                :         p2c, 2025-02, 2025-04
+    Public Beta                  :         p2d, 2025-03, 2025-05
 
     section Phase 3 · Value Layer
-    Task Marketplace         :         p3a, 2025-04, 2025-07
-    Advanced Anti-Cheat      :         p3b, 2025-05, 2025-08
-    Token Integration        :         p3c, 2025-07, 2025-09
+    Task Marketplace             :         p3a, 2025-04, 2025-07
+    Advanced Anti-Cheat          :         p3b, 2025-05, 2025-08
+    Token Integration            :         p3c, 2025-07, 2025-09
 
     section Phase 4 · Ecosystem
-    Developer API            :         p4a, 2025-10, 2026-01
-    Decentralized Expansion  :         p4b, 2025-12, 2026-06
+    Developer API                :         p4a, 2025-10, 2026-01
+    Decentralized Expansion      :         p4b, 2025-12, 2026-06
 ```
 
 ---

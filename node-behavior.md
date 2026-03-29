@@ -11,17 +11,17 @@ sequenceDiagram
     participant D as Database
 
     loop Every 30 seconds
-        C->>B: POST /node/heartbeat\n{ node_id, device_id, uptime }
-        B->>B: Check interval ≥ 20s
-        B->>B: Check uptime delta realistic
-        B->>B: Check node registered
+        C->>B: POST /node/heartbeat
+        B->>B: Check interval is 20s or more
+        B->>B: Check uptime delta is realistic
+        B->>B: Check node is registered
         alt All checks pass
-            B->>D: Update last_seen + uptime
+            B->>D: Update last_seen and uptime
             D->>B: OK
             B->>B: Calculate points
-            B-->>C: 200 OK - Heartbeat received
+            B-->>C: 200 OK
         else Validation failed
-            B-->>C: 400 - Rejected, no points
+            B-->>C: 400 Rejected
         end
     end
 ```
@@ -36,24 +36,27 @@ If a heartbeat fails validation, it is rejected and no points are credited for t
 
 ```mermaid
 flowchart TD
-    A([Backend assigns task]) --> B[Node receives task\nvia polling or push]
+    A([Backend assigns task]) --> B[Node receives task]
     B --> C[Node executes task locally]
-    C --> D[Node submits result to backend]
+    C --> D[Node submits result]
     D --> E{Backend validates result}
-    E -->|Valid| F([Points credited to account])
-    E -->|Invalid| G([Rejected - no reward])
+    E -->|Valid| F([Points credited])
+    E -->|Invalid| G([Rejected])
 
-    style A fill:#7c3aed,color:#fff,stroke:none
-    style F fill:#10b981,color:#fff,stroke:none
-    style G fill:#ef4444,color:#fff,stroke:none
-    style E fill:#f59e0b,color:#000,stroke:none
+    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style B fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style C fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style D fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style E fill:#78350f,stroke:#78350f,color:#fff
+    style F fill:#14532d,stroke:#14532d,color:#fff
+    style G fill:#7f1d1d,stroke:#7f1d1d,color:#fff
 ```
 
 ---
 
 ## Validation Flow
 
-Every heartbeat goes through a full validation pipeline before any state is updated:
+Every heartbeat goes through a full validation pipeline before any state is updated.
 
 ```mermaid
 flowchart TD
@@ -61,21 +64,26 @@ flowchart TD
     B -->|No| R1([Reject])
     B -->|Yes| C{Device owns node?}
     C -->|No| R2([Reject])
-    C -->|Yes| D{Interval ≥ 20s?}
+    C -->|Yes| D{Interval 20s or more?}
     D -->|No| R3([Reject - spam])
     D -->|Yes| E{Uptime delta realistic?}
     E -->|No| R4([Reject - manipulation])
-    E -->|Yes| F{Device has ≤ 2 nodes?}
+    E -->|Yes| F{Device has 2 nodes or fewer?}
     F -->|No| R5([Reject - limit exceeded])
-    F -->|Yes| G([✅ Valid - update state & credit points])
+    F -->|Yes| G([Valid - update state and credit points])
 
-    style G fill:#10b981,color:#fff,stroke:none
-    style R1 fill:#ef4444,color:#fff,stroke:none
-    style R2 fill:#ef4444,color:#fff,stroke:none
-    style R3 fill:#ef4444,color:#fff,stroke:none
-    style R4 fill:#ef4444,color:#fff,stroke:none
-    style R5 fill:#ef4444,color:#fff,stroke:none
-    style A fill:#7c3aed,color:#fff,stroke:none
+    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style G fill:#14532d,stroke:#14532d,color:#fff
+    style R1 fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style R2 fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style R3 fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style R4 fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style R5 fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style B fill:#78350f,stroke:#78350f,color:#fff
+    style C fill:#78350f,stroke:#78350f,color:#fff
+    style D fill:#78350f,stroke:#78350f,color:#fff
+    style E fill:#78350f,stroke:#78350f,color:#fff
+    style F fill:#78350f,stroke:#78350f,color:#fff
 ```
 
 ---
@@ -84,12 +92,12 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> REGISTERED : CLI register command
-    REGISTERED --> RUNNING : CLI start command
-    RUNNING --> STOPPED : CLI stop command
+    [*] --> REGISTERED : CLI register
+    REGISTERED --> RUNNING : CLI start
+    RUNNING --> STOPPED : CLI stop
     RUNNING --> INACTIVE : Heartbeat timeout
-    STOPPED --> RUNNING : CLI start command
-    INACTIVE --> RUNNING : CLI start command
+    STOPPED --> RUNNING : CLI start
+    INACTIVE --> RUNNING : CLI start
 
     note right of RUNNING
         Sending heartbeats every 30s
@@ -97,9 +105,8 @@ stateDiagram-v2
     end note
 
     note right of INACTIVE
-        No heartbeat received
-        within expected window
-        No points earned
+        No heartbeat within expected window
+        No points earned during this period
     end note
 ```
 

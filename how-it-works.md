@@ -6,22 +6,22 @@ Nexora is composed of three main layers that work together to validate activity 
 
 ```mermaid
 graph TD
-    A[👤 User Device] --> B[CLI Node]
-    B -->|Heartbeat / Task Result| C[Backend API - FastAPI]
+    A[User Device] --> B[CLI Node]
+    B --> C[Backend API]
     C --> D[Anti-Cheat Validator]
-    D -->|Pass| E[Reward Engine]
-    D -->|Fail| F[Rejected - No Points]
+    D --> E[Reward Engine]
+    D --> F[Rejected]
     E --> G[(Database)]
     G --> H[User Points Balance]
 
-    style A fill:#1e1e2e,stroke:#7c3aed,color:#fff
-    style B fill:#1e1e2e,stroke:#7c3aed,color:#fff
-    style C fill:#1e1e2e,stroke:#2563eb,color:#fff
-    style D fill:#1e1e2e,stroke:#f59e0b,color:#fff
-    style E fill:#1e1e2e,stroke:#10b981,color:#fff
-    style F fill:#1e1e2e,stroke:#ef4444,color:#fff
-    style G fill:#1e1e2e,stroke:#6b7280,color:#fff
-    style H fill:#1e1e2e,stroke:#10b981,color:#fff
+    style A fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style B fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style C fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style D fill:#78350f,stroke:#78350f,color:#fff
+    style E fill:#14532d,stroke:#14532d,color:#fff
+    style F fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style G fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style H fill:#14532d,stroke:#14532d,color:#fff
 ```
 
 - The **CLI Node** runs on the user's device and handles registration, heartbeats, and task execution.
@@ -30,7 +30,7 @@ graph TD
 
 ---
 
-## Node → Backend → Reward Flow
+## Node to Backend to Reward Flow
 
 ```mermaid
 flowchart TD
@@ -38,17 +38,23 @@ flowchart TD
     B --> C[Node starts]
     C --> D[Send heartbeat every 30s]
     D --> E{Backend validates}
-    E -->|Valid| F[Calculate points\nuptime_seconds / 60]
+    E -->|Valid| F[Calculate points\nuptime seconds divided by 60]
     E -->|Invalid| G([Heartbeat rejected])
     F --> H[Credit points to account]
     H --> I{User ready to claim?}
     I -->|Yes| J([Claim points])
     I -->|No| D
 
-    style A fill:#7c3aed,color:#fff,stroke:none
-    style J fill:#10b981,color:#fff,stroke:none
-    style G fill:#ef4444,color:#fff,stroke:none
-    style E fill:#f59e0b,color:#000,stroke:none
+    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style B fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style C fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style D fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style E fill:#78350f,stroke:#78350f,color:#fff
+    style F fill:#14532d,stroke:#14532d,color:#fff
+    style G fill:#7f1d1d,stroke:#7f1d1d,color:#fff
+    style H fill:#14532d,stroke:#14532d,color:#fff
+    style I fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style J fill:#14532d,stroke:#14532d,color:#fff
 ```
 
 ---

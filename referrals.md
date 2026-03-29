@@ -16,18 +16,18 @@ sequenceDiagram
     participant N as New User
     participant B as Backend API
 
-    R->>N: Shares referral code (e.g. ABC12345)
-    N->>B: POST /user/register\n{ username, referral_code: "ABC12345" }
+    R->>N: Shares referral code
+    N->>B: POST /user/register with referral code
     B->>B: Validate referral code exists
-    B->>B: Check code not suspended
+    B->>B: Check code is not suspended
     alt Valid code
         B->>B: Create user account
         B->>B: Record referral relationship
-        B-->>N: Account created\n+ new referral code generated
-        Note over B,R: Referrer earns bonus\nwhen new user becomes active
+        B-->>N: Account created with new referral code
     else Invalid code
-        B-->>N: 400 - Invalid referral code
+        B-->>N: 400 Invalid referral code
     end
+    Note over B,R: Referrer earns bonus when new user becomes active
 ```
 
 ---
@@ -39,10 +39,13 @@ flowchart TD
     A([Referred user runs node]) --> B[Referred user earns points]
     B --> C[Backend detects active referral]
     C --> D[Calculate referral bonus]
-    D --> E([Bonus credited to referrer account])
+    D --> E([Bonus credited to referrer])
 
-    style A fill:#7c3aed,color:#fff,stroke:none
-    style E fill:#10b981,color:#fff,stroke:none
+    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
+    style B fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style C fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style D fill:#1e293b,stroke:#475569,color:#cbd5e1
+    style E fill:#14532d,stroke:#14532d,color:#fff
 ```
 
 ---
