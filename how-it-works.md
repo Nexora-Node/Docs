@@ -13,6 +13,15 @@ graph TD
     D -->|Fail| F[Rejected]
     E --> G[(Database)]
     G --> H[User Points Balance]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
+    style H fill:#fff,stroke:#333,color:#000
 ```
 
 - The **CLI Node** runs on the user's device and handles registration, heartbeats, and task execution.
@@ -35,6 +44,17 @@ flowchart TD
     H --> I{Ready to claim?}
     I -->|Yes| J[Claim points]
     I -->|No| D
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
+    style H fill:#fff,stroke:#333,color:#000
+    style I fill:#fff,stroke:#333,color:#000
+    style J fill:#fff,stroke:#333,color:#000
 ```
 
 ---

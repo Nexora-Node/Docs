@@ -42,6 +42,14 @@ flowchart TD
     D --> E[Add delta divided by 60 to points balance]
     E --> F[Update total earned in database]
     F --> G[Points available for claim]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
 ```
 
 ---
@@ -54,6 +62,12 @@ flowchart TD
     B --> C[Reset points balance to 0]
     C --> D[Record claim in history]
     D --> E[Return claimed amount to user]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
 ```
 
 After a successful claim:

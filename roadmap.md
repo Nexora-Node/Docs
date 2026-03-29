@@ -48,6 +48,14 @@ graph LR
     B --> E[Anti-Cheat]
     A --> F[Device Fingerprint]
     A --> G[Heartbeat]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
 ```
 
 | Milestone | Status |
@@ -74,6 +82,13 @@ graph LR
     C --> D[Result Validation]
     B --> E[Web Dashboard]
     B --> F[Public Beta]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
 ```
 
 | Milestone | Status |
@@ -102,6 +117,15 @@ graph TD
     E --> F[Advanced Anti-Cheat]
     D --> G[Token Integration]
     G --> H[Points to Token Conversion]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
+    style H fill:#fff,stroke:#333,color:#000
 ```
 
 | Milestone | Status |
@@ -128,6 +152,14 @@ graph TD
     D --> E[Decentralized Node Registry]
     E --> F[Community Governance]
     F --> G[Node Operator Voting]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
 ```
 
 | Milestone | Status |

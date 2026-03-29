@@ -15,6 +15,17 @@ flowchart TD
     F -->|Yes| H[Update last_seen and uptime]
     H --> I[Calculate and credit points]
     I --> J[Return 200 OK]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
+    style H fill:#fff,stroke:#333,color:#000
+    style I fill:#fff,stroke:#333,color:#000
+    style J fill:#fff,stroke:#333,color:#000
 ```
 
 If a heartbeat fails validation, it is rejected and no points are credited for that interval.
@@ -33,6 +44,14 @@ flowchart TD
     D --> E{Backend validates result}
     E -->|Valid| F[Points credited to account]
     E -->|Invalid| G[Rejected - no reward]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
 ```
 
 ---
@@ -54,6 +73,19 @@ flowchart TD
     E -->|Yes| F{Device has 2 nodes or fewer?}
     F -->|No| F1[Reject - limit exceeded]
     F -->|Yes| G[Valid - update state and credit points]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style B1 fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style C1 fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style D1 fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style E1 fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style F1 fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
 ```
 
 ---
@@ -68,6 +100,12 @@ flowchart TD
     C -->|Heartbeat timeout| E[INACTIVE]
     D -->|CLI start| C
     E -->|CLI start| C
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
 ```
 
 | State | Description |

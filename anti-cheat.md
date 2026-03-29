@@ -44,6 +44,16 @@ flowchart TD
     D --> I[Activity monitored for repeat violations]
     I -->|Repeated| E
     E -->|Escalated| F
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
+    style H fill:#fff,stroke:#333,color:#000
+    style I fill:#fff,stroke:#333,color:#000
 ```
 
 ---
@@ -65,14 +75,18 @@ flowchart TD
 
 A shadow-banned account continues to operate normally from the user's perspective — the node runs, heartbeats are accepted, and the CLI shows no errors. However, no points are credited to the account.
 
-This approach is intentional: it prevents bad actors from immediately detecting the ban and creating new accounts.
-
 ```mermaid
 flowchart LR
     A[Node sends heartbeat] --> B[Backend accepts request]
     B --> C{Account shadow banned?}
     C -->|No| D[Points credited normally]
     C -->|Yes| E[Request accepted - 0 points credited]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
 ```
 
 ---

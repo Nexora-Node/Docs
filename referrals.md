@@ -20,6 +20,16 @@ flowchart TD
     F --> G[Referral relationship recorded]
     G --> H[New referral code generated for user]
     H --> I[Referrer earns bonus when user becomes active]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
+    style F fill:#fff,stroke:#333,color:#000
+    style G fill:#fff,stroke:#333,color:#000
+    style H fill:#fff,stroke:#333,color:#000
+    style I fill:#fff,stroke:#333,color:#000
 ```
 
 ---
@@ -32,6 +42,12 @@ flowchart TD
     B --> C[Backend detects active referral]
     C --> D[Calculate referral bonus]
     D --> E[Bonus credited to referrer account]
+
+    style A fill:#fff,stroke:#333,color:#000
+    style B fill:#fff,stroke:#333,color:#000
+    style C fill:#fff,stroke:#333,color:#000
+    style D fill:#fff,stroke:#333,color:#000
+    style E fill:#fff,stroke:#333,color:#000
 ```
 
 ---
