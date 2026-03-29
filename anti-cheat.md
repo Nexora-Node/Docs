@@ -34,28 +34,16 @@ The advanced layer analyzes behavioral patterns over time:
 
 ```mermaid
 flowchart TD
-    A([Suspicious signal detected]) --> B[Severity assessment]
+    A[Suspicious signal detected] --> B[Severity assessment]
     B --> C{Severity level}
-    C -->|Low| D[Warning issued]
+    C -->|Low| D[Warning issued to account]
     C -->|Medium| E[Reward reduction applied]
-    C -->|High| F[Immediate action]
-    F --> G{Type of abuse}
-    G -->|Automated or bot| H([Shadow ban])
-    G -->|Confirmed fraud| I([Account suspension])
-    D --> J[Activity monitored]
-    J -->|Repeated| E
+    C -->|High| F{Type of abuse}
+    F -->|Automated or bot| G[Shadow ban]
+    F -->|Confirmed fraud| H[Account suspension]
+    D --> I[Activity monitored for repeat violations]
+    I -->|Repeated| E
     E -->|Escalated| F
-
-    style A fill:#78350f,stroke:#78350f,color:#fff
-    style B fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style C fill:#78350f,stroke:#78350f,color:#fff
-    style D fill:#1e3a5f,stroke:#1e3a5f,color:#fff
-    style E fill:#713f12,stroke:#713f12,color:#fff
-    style F fill:#7f1d1d,stroke:#7f1d1d,color:#fff
-    style G fill:#78350f,stroke:#78350f,color:#fff
-    style H fill:#3b0764,stroke:#3b0764,color:#fff
-    style I fill:#7f1d1d,stroke:#7f1d1d,color:#fff
-    style J fill:#1e293b,stroke:#475569,color:#cbd5e1
 ```
 
 ---
@@ -83,14 +71,8 @@ This approach is intentional: it prevents bad actors from immediately detecting 
 flowchart LR
     A[Node sends heartbeat] --> B[Backend accepts request]
     B --> C{Account shadow banned?}
-    C -->|No| D([Points credited normally])
-    C -->|Yes| E([Request accepted - 0 points])
-
-    style A fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style B fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style C fill:#78350f,stroke:#78350f,color:#fff
-    style D fill:#14532d,stroke:#14532d,color:#fff
-    style E fill:#3b0764,stroke:#3b0764,color:#fff
+    C -->|No| D[Points credited normally]
+    C -->|Yes| E[Request accepted - 0 points credited]
 ```
 
 ---

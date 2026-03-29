@@ -8,20 +8,11 @@ Nexora is composed of three main layers that work together to validate activity 
 graph TD
     A[User Device] --> B[CLI Node]
     B --> C[Backend API]
-    C --> D[Anti-Cheat Validator]
-    D --> E[Reward Engine]
-    D --> F[Rejected]
+    C --> D{Anti-Cheat Validator}
+    D -->|Pass| E[Reward Engine]
+    D -->|Fail| F[Rejected]
     E --> G[(Database)]
     G --> H[User Points Balance]
-
-    style A fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style B fill:#1e3a5f,stroke:#1e3a5f,color:#fff
-    style C fill:#1e3a5f,stroke:#1e3a5f,color:#fff
-    style D fill:#78350f,stroke:#78350f,color:#fff
-    style E fill:#14532d,stroke:#14532d,color:#fff
-    style F fill:#7f1d1d,stroke:#7f1d1d,color:#fff
-    style G fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style H fill:#14532d,stroke:#14532d,color:#fff
 ```
 
 - The **CLI Node** runs on the user's device and handles registration, heartbeats, and task execution.
@@ -34,27 +25,16 @@ graph TD
 
 ```mermaid
 flowchart TD
-    A([User installs CLI]) --> B[Register with referral code]
+    A[User installs CLI] --> B[Register with referral code]
     B --> C[Node starts]
     C --> D[Send heartbeat every 30s]
     D --> E{Backend validates}
-    E -->|Valid| F[Calculate points\nuptime seconds divided by 60]
-    E -->|Invalid| G([Heartbeat rejected])
+    E -->|Valid| F[Calculate points]
+    E -->|Invalid| G[Heartbeat rejected]
     F --> H[Credit points to account]
-    H --> I{User ready to claim?}
-    I -->|Yes| J([Claim points])
+    H --> I{Ready to claim?}
+    I -->|Yes| J[Claim points]
     I -->|No| D
-
-    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
-    style B fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style C fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style D fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style E fill:#78350f,stroke:#78350f,color:#fff
-    style F fill:#14532d,stroke:#14532d,color:#fff
-    style G fill:#7f1d1d,stroke:#7f1d1d,color:#fff
-    style H fill:#14532d,stroke:#14532d,color:#fff
-    style I fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style J fill:#14532d,stroke:#14532d,color:#fff
 ```
 
 ---

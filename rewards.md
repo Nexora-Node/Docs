@@ -36,20 +36,12 @@ Points are calculated and credited server-side after each valid heartbeat. The b
 
 ```mermaid
 flowchart TD
-    A([Node sends heartbeat]) --> B{Heartbeat valid?}
-    B -->|No| C([Rejected - 0 points])
+    A[Node sends heartbeat] --> B{Heartbeat valid?}
+    B -->|No| C[Rejected - 0 points]
     B -->|Yes| D[Calculate uptime delta]
-    D --> E[Add delta divided by 60 to points\nAdd to total earned]
-    E --> F[(Update database)]
-    F --> G([Points available for claim])
-
-    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
-    style B fill:#78350f,stroke:#78350f,color:#fff
-    style C fill:#7f1d1d,stroke:#7f1d1d,color:#fff
-    style D fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style E fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style F fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style G fill:#14532d,stroke:#14532d,color:#fff
+    D --> E[Add delta divided by 60 to points balance]
+    E --> F[Update total earned in database]
+    F --> G[Points available for claim]
 ```
 
 ---
@@ -57,17 +49,11 @@ flowchart TD
 ## Claim Mechanism
 
 ```mermaid
-sequenceDiagram
-    participant U as User
-    participant B as Backend
-    participant D as Database
-
-    U->>B: POST /points/claim
-    B->>D: Read current points balance
-    D-->>B: points = 120.5
-    B->>D: Reset points to 0 and record claim
-    D-->>B: OK
-    B-->>U: Successfully claimed 120.50 points
+flowchart TD
+    A[User submits POST /points/claim] --> B[Backend reads current balance]
+    B --> C[Reset points balance to 0]
+    C --> D[Record claim in history]
+    D --> E[Return claimed amount to user]
 ```
 
 After a successful claim:

@@ -10,26 +10,26 @@ Nexora is built in deliberate phases — each one expanding the network's capabi
 timeline
     title Nexora Development Roadmap
     section Phase 1 · Foundation
-        Q4 2024 : CLI Node (Python)
+        Q4 2024 : CLI Node
                : FastAPI Backend
-               : Uptime Reward System
+               : Reward System
                : Referral System
                : Basic Anti-Cheat
     section Phase 2 · Network Expansion
-        Q1 2025 : Stable VPS Deployment
+        Q1 2025 : VPS Deployment
                : Task System v2
                : Web Dashboard
                : Public Beta
-    section Phase 3 · Scaling & Value
+    section Phase 3 · Scaling and Value
         Q2-Q3 2025 : Task Marketplace
-                  : Advanced Anti-Cheat
-                  : Performance Rewards
-                  : Token Integration
+                   : Advanced Anti-Cheat
+                   : Performance Rewards
+                   : Token Integration
     section Phase 4 · Ecosystem
         Q4 2025+ : Developer API
-                : Third-Party Integrations
-                : Decentralized Expansion
-                : Community Governance
+                 : Third-Party Integrations
+                 : Decentralized Expansion
+                 : Community Governance
 ```
 
 ---
@@ -47,15 +47,7 @@ graph LR
     B --> D[Referral System]
     B --> E[Anti-Cheat]
     A --> F[Device Fingerprint]
-    A --> G[Heartbeat 30s]
-
-    style A fill:#166534,stroke:#166534,color:#fff
-    style B fill:#166534,stroke:#166534,color:#fff
-    style C fill:#166534,stroke:#166534,color:#fff
-    style D fill:#166534,stroke:#166534,color:#fff
-    style E fill:#166534,stroke:#166534,color:#fff
-    style F fill:#166534,stroke:#166534,color:#fff
-    style G fill:#166534,stroke:#166534,color:#fff
+    A --> G[Heartbeat]
 ```
 
 | Milestone | Status |
@@ -81,18 +73,7 @@ graph LR
     B --> C[Task System v2]
     C --> D[Result Validation]
     B --> E[Web Dashboard]
-    E --> F[Node Status UI]
-    E --> G[Points UI]
-    B --> H[Public Beta]
-
-    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
-    style B fill:#1e3a5f,stroke:#1e3a5f,color:#fff
-    style C fill:#1d4ed8,stroke:#1d4ed8,color:#fff
-    style D fill:#1d4ed8,stroke:#1d4ed8,color:#fff
-    style E fill:#1d4ed8,stroke:#1d4ed8,color:#fff
-    style F fill:#1d4ed8,stroke:#1d4ed8,color:#fff
-    style G fill:#1d4ed8,stroke:#1d4ed8,color:#fff
-    style H fill:#1d4ed8,stroke:#1d4ed8,color:#fff
+    B --> F[Public Beta]
 ```
 
 | Milestone | Status |
@@ -105,7 +86,7 @@ graph LR
 
 ---
 
-## Phase 3 — Scaling & Value Layer
+## Phase 3 — Scaling and Value Layer
 
 > 🔜 Planned
 
@@ -119,19 +100,8 @@ graph TD
     C --> D[Bonus Multipliers]
     A --> E[Result Validation]
     E --> F[Advanced Anti-Cheat]
-    F --> G[Behavioral Analysis]
-    D --> H[Token Integration]
-    H --> I[Points to Token Conversion]
-
-    style A fill:#3b0764,stroke:#3b0764,color:#fff
-    style B fill:#3b0764,stroke:#3b0764,color:#fff
-    style C fill:#4c1d95,stroke:#4c1d95,color:#fff
-    style D fill:#4c1d95,stroke:#4c1d95,color:#fff
-    style E fill:#4c1d95,stroke:#4c1d95,color:#fff
-    style F fill:#4c1d95,stroke:#4c1d95,color:#fff
-    style G fill:#4c1d95,stroke:#4c1d95,color:#fff
-    style H fill:#6d28d9,stroke:#6d28d9,color:#fff
-    style I fill:#6d28d9,stroke:#6d28d9,color:#fff
+    D --> G[Token Integration]
+    G --> H[Points to Token Conversion]
 ```
 
 | Milestone | Status |
@@ -158,14 +128,6 @@ graph TD
     D --> E[Decentralized Node Registry]
     E --> F[Community Governance]
     F --> G[Node Operator Voting]
-
-    style A fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
-    style B fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
-    style C fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
-    style D fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
-    style E fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
-    style F fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
-    style G fill:#1e1b4b,stroke:#312e81,color:#c7d2fe
 ```
 
 | Milestone | Status |
@@ -186,23 +148,23 @@ gantt
     dateFormat YYYY-MM
     axisFormat %b %Y
 
-    section Phase 1 · Foundation
+    section Phase 1 Foundation
     CLI Node and Backend         :done,    p1a, 2024-10, 2024-12
     Reward and Referral System   :done,    p1b, 2024-10, 2024-12
     Basic Anti-Cheat             :done,    p1c, 2024-11, 2024-12
 
-    section Phase 2 · Expansion
+    section Phase 2 Expansion
     VPS Deployment               :active,  p2a, 2025-01, 2025-02
     Task System v2               :active,  p2b, 2025-01, 2025-03
     Web Dashboard                :         p2c, 2025-02, 2025-04
     Public Beta                  :         p2d, 2025-03, 2025-05
 
-    section Phase 3 · Value Layer
+    section Phase 3 Value Layer
     Task Marketplace             :         p3a, 2025-04, 2025-07
     Advanced Anti-Cheat          :         p3b, 2025-05, 2025-08
     Token Integration            :         p3c, 2025-07, 2025-09
 
-    section Phase 4 · Ecosystem
+    section Phase 4 Ecosystem
     Developer API                :         p4a, 2025-10, 2026-01
     Decentralized Expansion      :         p4b, 2025-12, 2026-06
 ```

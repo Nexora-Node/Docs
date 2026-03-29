@@ -11,23 +11,15 @@ Registration on Nexora is **invite-only** — a valid referral code is required 
 ## Registration Flow
 
 ```mermaid
-sequenceDiagram
-    participant R as Referrer
-    participant N as New User
-    participant B as Backend API
-
-    R->>N: Shares referral code
-    N->>B: POST /user/register with referral code
-    B->>B: Validate referral code exists
-    B->>B: Check code is not suspended
-    alt Valid code
-        B->>B: Create user account
-        B->>B: Record referral relationship
-        B-->>N: Account created with new referral code
-    else Invalid code
-        B-->>N: 400 Invalid referral code
-    end
-    Note over B,R: Referrer earns bonus when new user becomes active
+flowchart TD
+    A[Referrer shares referral code] --> B[New user runs register command]
+    B --> C[Backend validates referral code]
+    C --> D{Code valid?}
+    D -->|No| E[Registration rejected]
+    D -->|Yes| F[User account created]
+    F --> G[Referral relationship recorded]
+    G --> H[New referral code generated for user]
+    H --> I[Referrer earns bonus when user becomes active]
 ```
 
 ---
@@ -36,16 +28,10 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A([Referred user runs node]) --> B[Referred user earns points]
+    A[Referred user runs node] --> B[Referred user earns points]
     B --> C[Backend detects active referral]
     C --> D[Calculate referral bonus]
-    D --> E([Bonus credited to referrer])
-
-    style A fill:#1e3a5f,stroke:#1e3a5f,color:#fff
-    style B fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style C fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style D fill:#1e293b,stroke:#475569,color:#cbd5e1
-    style E fill:#14532d,stroke:#14532d,color:#fff
+    D --> E[Bonus credited to referrer account]
 ```
 
 ---
