@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./logo.png" alt="Nexora Logo" width="120"/>
+</p>
+
 # Welcome to Nexora
 
 Nexora is a distributed node network that rewards users for running lightweight nodes, maintaining uptime, and optionally securing blockchain networks — no heavy mining, no GPU required, just honest participation.
