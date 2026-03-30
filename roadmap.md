@@ -167,30 +167,29 @@ graph TD
 ## Full Timeline at a Glance
 
 ```mermaid
-gantt
-    title Nexora Roadmap Timeline
-    dateFormat YYYY-MM
-    axisFormat %b %Y
-
-    section Phase 1 Foundation
-    CLI Node and Backend         :done,    p1a, 2024-10, 2024-12
-    Reward and Referral System   :done,    p1b, 2024-10, 2024-12
-    Basic Anti-Cheat             :done,    p1c, 2024-11, 2024-12
-
-    section Phase 2 Expansion
-    VPS Deployment               :active,  p2a, 2025-01, 2025-02
-    Task System v2               :active,  p2b, 2025-01, 2025-03
-    Web Dashboard                :         p2c, 2025-02, 2025-04
-    Public Beta                  :         p2d, 2025-03, 2025-05
-
-    section Phase 3 Value Layer
-    Task Marketplace             :         p3a, 2025-04, 2025-07
-    Advanced Anti-Cheat          :         p3b, 2025-05, 2025-08
-    Token Integration            :         p3c, 2025-07, 2025-09
-
-    section Phase 4 Ecosystem
-    Developer API                :         p4a, 2025-10, 2026-01
-    Decentralized Expansion      :         p4b, 2025-12, 2026-06
+timeline
+    title Nexora Full Timeline
+    section Q4 2024 · Phase 1 Foundation
+        Completed : CLI Node
+                  : FastAPI Backend
+                  : Reward System
+                  : Referral System
+                  : Basic Anti-Cheat
+    section Q1 2025 · Phase 2 Expansion
+        In Progress : VPS Deployment
+                    : Task System v2
+                    : Web Dashboard
+                    : Public Beta
+    section Q2-Q3 2025 · Phase 3 Value Layer
+        Planned : Task Marketplace
+                : Advanced Anti-Cheat
+                : Performance Rewards
+                : Token Integration
+    section Q4 2025+ · Phase 4 Ecosystem
+        Future : Developer API
+               : Third-Party Integrations
+               : Decentralized Expansion
+               : Community Governance
 ```
 
 ---
