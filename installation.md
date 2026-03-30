@@ -2,7 +2,7 @@
 
 ## Requirements
 
-| Requirement | Minimum Version |
+| Requirement | Minimum |
 |---|---|
 | Python | 3.8+ |
 | pip | Latest |
@@ -11,111 +11,67 @@
 
 ---
 
-## Step 1 — Clone the Repository
+## Option A — Connect to Production Server (Recommended)
+
+The Nexora backend is already running in production. You only need the CLI.
 
 ```bash
+# 1. Clone the repo
 git clone https://github.com/Nexora-Node/Node.git
 cd Node
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Register (get a referral code from an existing user)
+python cli/main.py register --ref YOUR_REF_CODE
+
+# 4. Start your node
+python cli/main.py start
 ```
+
+The CLI automatically connects to `https://node-production-712b.up.railway.app`.
 
 ---
 
-## Step 2 — Install Dependencies
+## Option B — Run Your Own Backend (Self-Hosted)
+
+### Step 1 — Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+### Step 2 — Set Up Database
 
-## Step 3 — Seed the Database (First-Time Setup Only)
+For local development, SQLite is used automatically. For production, set the `DATABASE_URL` environment variable:
 
-This step is only required when setting up the backend for the first time. It creates an initial seed user with referral code `NEXORA001`.
+```bash
+export DATABASE_URL=postgresql://user:password@host:5432/dbname
+```
+
+### Step 3 — Seed the Database
 
 ```bash
 python seed_database.py
 ```
 
----
+This creates the initial admin user with a random referral code. Note the referral code printed — you'll need it to register.
 
-## Step 4 — Start the Backend Server
+### Step 4 — Start the Backend
 
 ```bash
 cd backend
 python main.py
 ```
 
-The backend will start on `http://localhost:8000`.
+Backend starts on `http://localhost:8000`.
 
-You can verify it's running by visiting:
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
-
----
-
-## Step 5 — Register Your Node
+### Step 5 — Point CLI to Your Backend
 
 ```bash
-python cli/main.py register --ref NEXORA001
-```
-
-You will be prompted to enter a username. The CLI will:
-- Generate a unique device ID from your OS, hostname, and MAC address
-- Register your user and device with the backend
-- Save your configuration to `~/.nexora/config.json`
-
----
-
-## Step 6 — Start Your Node
-
-```bash
-python cli/main.py start
-```
-
-Your node will start running in the background, sending heartbeats every 30 seconds.
-
----
-
-## Platform-Specific Instructions
-
-### Linux / VPS
-
-```bash
-# Install Python if needed
-sudo apt update && sudo apt install python3 python3-pip
-
-# Use screen or tmux to keep processes alive
-screen -S nexora-backend
-python3 backend/main.py
-
-# Open a new screen session
-screen -S nexora-node
-python3 cli/main.py register --ref NEXORA001
-python3 cli/main.py start
-```
-
-### Windows
-
-```cmd
-python cli/main.py register --ref NEXORA001
-python cli/main.py start
-```
-
-### Android (Termux)
-
-```bash
-pkg install python
-pip install -r requirements.txt
-python seed_database.py
-
-# Start backend
-cd backend
-python main.py &
-cd ..
-
-# Register and start node
-python cli/main.py register --ref NEXORA001
-python cli/main.py start
+export NEXORA_API_URL=http://localhost:8000
+python cli/main.py register --ref YOUR_SEED_CODE
 ```
 
 ---
@@ -125,35 +81,56 @@ python cli/main.py start
 | Command | Description |
 |---|---|
 | `register --ref CODE` | Register a new user with a referral code |
-| `start` | Start the node in background mode |
+| `start` | Start the node (auto-detects local blockchain nodes) |
 | `stop` | Stop the running node |
-| `status` | Show node status and current points |
+| `status` | Show node status, chain nodes, and current points |
+| `claim` | Claim available points |
+| `chains` | List all supported blockchain networks and multipliers |
+
+---
+
+## Platform Notes
+
+### Linux / VPS
+
+```bash
+# Use screen or tmux to keep the node running after logout
+screen -S nexora
+python cli/main.py start
+# Ctrl+A, D to detach
+```
+
+### Windows
+
+```cmd
+python cli/main.py register --ref YOUR_REF_CODE
+python cli/main.py start
+```
+
+### Android (Termux)
+
+```bash
+pkg install python
+pip install -r requirements.txt
+python cli/main.py register --ref YOUR_REF_CODE
+python cli/main.py start
+```
 
 ---
 
 ## Troubleshooting
 
 **"Cannot connect to server"**
-Make sure the backend is running:
-```bash
-cd backend && python main.py
-```
+Check your internet connection. The production server is at `https://node-production-712b.up.railway.app`.
 
-**"Node is already running"**
-Stop the existing node first:
-```bash
-python cli/main.py stop
-```
+**"Device not found. Register your device first."**
+Run `python cli/main.py register --ref CODE` before starting.
 
 **"Invalid referral code"**
-Use the seed code `NEXORA001` or get a valid code from an existing user.
+Referral codes are single-use. Get a fresh code from an existing user.
 
 **"Maximum 2 nodes per device allowed"**
-Each device supports a maximum of 2 nodes. Stop one before starting another.
+Each device supports max 2 active nodes. Stop one before starting another.
 
 **"Heartbeat spam detected"**
-Heartbeats must be at least 20 seconds apart. The CLI handles this automatically — do not modify the heartbeat interval manually.
-
----
-
-> **Warning:** Do not run more than 2 nodes per device. Attempting to bypass this limit is considered a violation and may result in account penalties.
+Heartbeats must be at least 20 seconds apart. Do not modify the CLI heartbeat interval.

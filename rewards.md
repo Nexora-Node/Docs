@@ -1,77 +1,52 @@
 # Reward System
 
-## How Points Are Earned
+## Base Uptime Rewards
 
-Points are earned passively based on validated node uptime. The formula is straightforward:
+Points are earned passively based on validated node uptime:
 
 ```
-points = uptime_seconds / 60
+points_per_heartbeat = uptime_delta_seconds / 60 × node_score_multiplier
 ```
 
-For every **1 minute** of validated uptime, you earn **1 point**.
+**1 point per minute** of validated uptime, adjusted by your node score (0–100).
 
-| Field | Description |
+| Uptime | Base Points |
 |---|---|
-| `points` | Current claimable balance |
-| `total_earned` | Lifetime total points earned |
+| 1 hour | 60 pts |
+| 24 hours | 1,440 pts |
+| 7 days | 10,080 pts |
+| 30 days | 43,200 pts |
 
 ---
 
-## Earning Rate Examples
+## Node Score Multiplier
 
-| Uptime | Points Earned |
-|---|---|
-| 1 hour | 60 points |
-| 24 hours | 1,440 points |
-| 7 days | 10,080 points |
-| 30 days | 43,200 points |
+Every node has a score (0–100, default 100). Your actual points earned are:
 
-> **Tip:** Running your node on a VPS or always-on server gives you the best uptime and therefore the highest point earnings.
-
----
-
-## Points Flow
-
-```mermaid
-flowchart TD
-    A[Node sends heartbeat] --> B{Heartbeat check}
-    B --> C[Rejected - 0 points]
-    B --> D[Calculate uptime delta]
-    D --> E[Add delta divided by 60 to points balance]
-    E --> F[Update total earned in database]
-    F --> G[Points available for claim]
-
-    style A fill:#fff,stroke:#333,color:#000
-    style B fill:#fff,stroke:#333,color:#000
-    style C fill:#fff,stroke:#333,color:#000
-    style D fill:#fff,stroke:#333,color:#000
-    style E fill:#fff,stroke:#333,color:#000
-    style F fill:#fff,stroke:#333,color:#000
-    style G fill:#fff,stroke:#333,color:#000
+```
+adjusted_points = raw_points × (node_score / 100)
 ```
 
+Scores decrease for violations and increase for stable long uptime. A node with score 80 earns 80% of base points.
+
 ---
 
-## Claim Mechanism
+## Blockchain Node Bonus Rewards
 
-```mermaid
-flowchart TD
-    A[User submits POST /points/claim] --> B[Backend reads current balance]
-    B --> C[Reset points balance to 0]
-    C --> D[Record claim in history]
-    D --> E[Return claimed amount to user]
+Running a verified local blockchain full node earns **bonus points on top of base uptime rewards**. The server verifies your node is actually synced before crediting bonuses.
 
-    style A fill:#fff,stroke:#333,color:#000
-    style B fill:#fff,stroke:#333,color:#000
-    style C fill:#fff,stroke:#333,color:#000
-    style D fill:#fff,stroke:#333,color:#000
-    style E fill:#fff,stroke:#333,color:#000
-```
+| Network | Chain ID | Bonus per Heartbeat | Multiplier |
+|---|---|---|---|
+| ETH Mainnet | 1 | 2.5 pts | 5× |
+| Base Mainnet | 8453 | 1.5 pts | 3× |
+| OP Mainnet | 10 | 1.0 pts | 2× |
+| BNB Chain | 56 | 1.0 pts | 2× |
+| Base Sepolia | 84532 | 0.75 pts | 1.5× |
+| ETH Sepolia | 11155111 | 0.75 pts | 1.5× |
+| OP Sepolia | 11155420 | 0.75 pts | 1.5× |
+| BNB Testnet | 97 | 0.6 pts | 1.2× |
 
-After a successful claim:
-- Your `points` balance resets to `0`
-- Your `total_earned` remains unchanged (it's a lifetime counter)
-- The claimed amount is recorded for reward distribution
+Chain heartbeats are sent every ~60 seconds. To earn chain bonuses, your blockchain node must be within the allowed sync lag threshold.
 
 ---
 
@@ -97,6 +72,18 @@ GET /points/{username}
 
 ---
 
+## Claiming Points
+
+```bash
+python cli/main.py claim
+```
+
+After claiming:
+- `points` balance resets to `0`
+- `total_earned` remains (lifetime counter)
+
+---
+
 ## Future: Points to Token Conversion
 
-> **Note:** Token integration is planned for Phase 3. Conversion rates and mechanisms will be announced when token integration is ready.
+Token integration is planned for a future phase. Conversion rates will be announced when ready.

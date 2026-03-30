@@ -13,6 +13,7 @@
 * [Key Features](features.md)
 * [Node Behavior](node-behavior.md)
 * [Reward System](rewards.md)
+* [Blockchain Node Rewards](chain-nodes.md)
 * [Referral System](referrals.md)
 
 ## System & Security

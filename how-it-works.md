@@ -2,88 +2,109 @@
 
 ## High-Level Architecture
 
-```mermaid
-graph TD
-    A[User Device] --> B[CLI Node]
-    B --> C[Backend API]
-    C --> D{Anti-Cheat Validator}
-    D --> E[Reward Engine]
-    D --> F[Rejected]
-    E --> G[(Database)]
-    G --> H[User Points Balance]
-
-    style A fill:#fff,stroke:#333,color:#000
-    style B fill:#fff,stroke:#333,color:#000
-    style C fill:#fff,stroke:#333,color:#000
-    style D fill:#fff,stroke:#333,color:#000
-    style E fill:#fff,stroke:#333,color:#000
-    style F fill:#fff,stroke:#333,color:#000
-    style G fill:#fff,stroke:#333,color:#000
-    style H fill:#fff,stroke:#333,color:#000
 ```
-
-- The **CLI Node** runs on the user's device and handles registration, heartbeats, and task execution.
-- The **Backend API** (FastAPI) receives node signals, validates them, and updates state.
-- The **Reward Engine** calculates points based on uptime and activity, applying anti-cheat rules before crediting any rewards.
-
----
-
-## Node to Backend to Reward Flow
-
-```mermaid
-flowchart TD
-    A[User installs CLI] --> B[Register with referral code]
-    B --> C[Node starts]
-    C --> D[Send heartbeat every 30s]
-    D --> E{Backend validates}
-    E --> F[Calculate points - if valid]
-    E --> G[Heartbeat rejected - if invalid]
-    F --> H[Credit points to account]
-    H --> I{Ready to claim?}
-    I --> J[Claim points - when ready]
-    I --> D
-
-    style A fill:#fff,stroke:#333,color:#000
-    style B fill:#fff,stroke:#333,color:#000
-    style C fill:#fff,stroke:#333,color:#000
-    style D fill:#fff,stroke:#333,color:#000
-    style E fill:#fff,stroke:#333,color:#000
-    style F fill:#fff,stroke:#333,color:#000
-    style G fill:#fff,stroke:#333,color:#000
-    style H fill:#fff,stroke:#333,color:#000
-    style I fill:#fff,stroke:#333,color:#000
-    style J fill:#fff,stroke:#333,color:#000
+User Device
+├── Nexora CLI
+│   ├── Uptime heartbeat (every ~30s)
+│   └── Chain node heartbeat (every ~60s)
+└── Blockchain Node (optional, Base/ETH/OP/BNB)
+        │
+        ▼
+Nexora Backend (Railway)
+├── Anti-Cheat Validator
+├── Chain Node Verifier
+├── Reward Engine
+└── PostgreSQL Database
 ```
 
 ---
 
-## Proof-of-Activity Explained
+## Registration Flow
 
-Nexora uses a **Proof-of-Activity (PoA)** model. Unlike Proof-of-Work (mining), PoA does not require computation. Instead, it verifies that a node is:
-
-1. **Online** — sending regular heartbeats within expected intervals
-2. **Consistent** — uptime increments are realistic and not artificially inflated
-3. **Unique** — the device is not running more nodes than allowed
-4. **Honest** — heartbeat timing and uptime values pass all validation checks
+```
+1. User gets referral code from existing user
+2. CLI generates device fingerprint (OS + hostname + MAC + CPU + RAM + disk)
+3. User registers → gets unique referral code for inviting others
+4. Device registered → linked to user account
+5. Node registered → gets node_id + node_token for authentication
+```
 
 ---
 
-> **Tip:** Running your node on a VPS or always-on server maximizes uptime and therefore maximizes your point earnings.
+## Heartbeat Flow
+
+Every ~30 seconds (with random jitter to avoid detection):
+
+```
+CLI sends POST /node/heartbeat
+    node_id, node_token, device_id, uptime
+        │
+        ▼
+Backend validates:
+    1. Token authentication
+    2. Node exists and is active
+    3. Rate limit (≥ 20s since last heartbeat)
+    4. Suspicious behavior analysis
+    5. Uptime regression check
+        │
+        ▼
+Points calculated:
+    raw = uptime_delta / 60
+    adjusted = raw × (node_score / 100)
+        │
+        ▼
+User balance updated in PostgreSQL
+```
+
+---
+
+## Chain Node Flow
+
+Every ~60 seconds (when a local blockchain node is detected):
+
+```
+CLI detects local RPC on port 8545/8546/...
+    │
+    ▼
+CLI sends POST /chain/heartbeat
+    chain_node_id, node_id, node_token, local_block
+        │
+        ▼
+Backend validates:
+    1. Token authentication
+    2. Block must be advancing (anti-fake-node)
+    3. Sync lag check vs public RPC
+        │
+        ▼
+Bonus points = chain_multiplier × 0.5
+        │
+        ▼
+User balance updated
+```
+
+---
+
+## Proof-of-Activity Model
+
+Nexora uses **Proof-of-Activity (PoA)**:
+
+- No computation required
+- Rewards honest, consistent uptime
+- Chain node verification adds a second layer — you must actually run the blockchain node, not just claim to
+
+For chain nodes specifically, the server independently queries the public RPC to verify your node's sync status. You cannot fake this.
 
 ---
 
 ## Configuration Storage
 
-The CLI stores its local state in `~/.nexora/config.json`:
+The CLI stores state in `~/.nexora/`:
 
-```json
-{
-  "username": "your_username",
-  "device_id": "generated_device_fingerprint",
-  "referral_code": "YOUR_CODE",
-  "api_url": "http://backend-url:8000",
-  "registered_at": "2024-01-01T00:00:00"
-}
+```
+~/.nexora/
+├── config.json      — user, device, referral code, api_url
+├── node_info.json   — active node_id and node_token
+└── chain_info.json  — detected chain nodes
 ```
 
-This file is created automatically on first registration and should not be manually edited.
+Do not manually edit these files.
