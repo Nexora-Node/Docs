@@ -10,157 +10,90 @@ Nexora is built in deliberate phases — each one expanding the network's capabi
 timeline
     title Nexora Development Roadmap
     section Phase 1 · Foundation
-        Q4 2024 : CLI Node
+        Q1 2026 : CLI Node
                : FastAPI Backend
-               : Reward System
+               : NEXORA Token System
                : Referral System
-               : Basic Anti-Cheat
+               : Anti-Cheat Engine
+               : Live Dashboard
     section Phase 2 · Network Expansion
-        Q1 2025 : VPS Deployment
-               : Task System v2
-               : Web Dashboard
-               : Public Beta
+        Q2 2026 : Web Dashboard (Vercel)
+               : On-Chain Claim (Base)
+               : ClaimDistributor Contract
+               : Public Beta Launch
+               : Chain Node Bonuses
     section Phase 3 · Scaling and Value
-        Q2-Q3 2025 : Task Marketplace
+        Q3-Q4 2026 : DEX Listing
                    : Advanced Anti-Cheat
                    : Performance Rewards
-                   : Token Integration
+                   : Mobile Support
     section Phase 4 · Ecosystem
-        Q4 2025+ : Developer API
-                 : Third-Party Integrations
-                 : Decentralized Expansion
-                 : Community Governance
+        2027+ : Developer API
+              : Third-Party Integrations
+              : Decentralized Expansion
+              : Community Governance
 ```
 
 ---
 
 ## Phase 1 — Foundation
 
-> ✅ Completed
-
-```mermaid
-graph LR
-    A[CLI Node] --> B[FastAPI Backend]
-    B --> C[Reward Engine]
-    B --> D[Referral System]
-    B --> E[Anti-Cheat]
-    A --> F[Device Fingerprint]
-    A --> G[Heartbeat]
-
-    style A fill:#fff,stroke:#333,color:#000
-    style B fill:#fff,stroke:#333,color:#000
-    style C fill:#fff,stroke:#333,color:#000
-    style D fill:#fff,stroke:#333,color:#000
-    style E fill:#fff,stroke:#333,color:#000
-    style F fill:#fff,stroke:#333,color:#000
-    style G fill:#fff,stroke:#333,color:#000
-```
+> ✅ Completed — Q1 2026
 
 | Milestone | Status |
 |---|---|
 | CLI Node (Python, cross-platform) | ✅ Done |
-| FastAPI backend with SQLAlchemy | ✅ Done |
-| Uptime-based reward system (1 pt/min) | ✅ Done |
+| FastAPI backend on Railway | ✅ Done |
+| NEXORA token system (smooth 5% decay, 200k supply) | ✅ Done |
 | Referral system with invite-only registration | ✅ Done |
-| Basic anti-cheat (node limit, spam, uptime validation) | ✅ Done |
+| Anti-cheat (node limit, PoW, rate limit, behavioral analysis) | ✅ Done |
+| Live terminal dashboard with real-time stats | ✅ Done |
 | Cross-platform support (Linux, Windows, VPS, Termux) | ✅ Done |
 
 ---
 
 ## Phase 2 — Network Expansion
 
-> 🔄 In Progress
-
-```mermaid
-graph LR
-    A[Production VPS] --> B[Stable Backend]
-    B --> C[Task System v2]
-    C --> D[Result Validation]
-    B --> E[Web Dashboard]
-    B --> F[Public Beta]
-
-    style A fill:#fff,stroke:#333,color:#000
-    style B fill:#fff,stroke:#333,color:#000
-    style C fill:#fff,stroke:#333,color:#000
-    style D fill:#fff,stroke:#333,color:#000
-    style E fill:#fff,stroke:#333,color:#000
-    style F fill:#fff,stroke:#333,color:#000
-```
+> 🔄 In Progress — Q2 2026
 
 | Milestone | Status |
 |---|---|
-| Stable VPS deployment with production backend | 🔄 In Progress |
-| Task system v2 (structured types, result validation) | 🔄 In Progress |
-| Web dashboard (node status, points, referrals) | 🔜 Planned |
-| Public beta with monitored onboarding | 🔜 Planned |
-| Backend monitoring and logging | 🔜 Planned |
+| Web dashboard (Next.js on Vercel) | ✅ Done |
+| NEXORA token contract on Base Mainnet | ✅ Done |
+| ClaimDistributor contract (EIP-712, 0.05% fee) | ✅ Done |
+| On-chain claim — user pays gas, backend signs voucher | ✅ Done |
+| Chain node bonuses (Base, ETH, OP, BNB verification) | ✅ Done |
+| Public beta launch | 🔄 In Progress |
+| Community growth & referral distribution | 🔄 In Progress |
 
 ---
 
 ## Phase 3 — Scaling and Value Layer
 
-> 🔜 Planned
-
-```mermaid
-graph TD
-    A[Task Marketplace] --> B[Node Network]
-    B --> A
-    B --> C[Performance Score]
-    C --> D[Bonus Multipliers]
-    A --> E[Result Validation]
-    E --> F[Advanced Anti-Cheat]
-    D --> G[Token Integration]
-    G --> H[Points to Token Conversion]
-
-    style A fill:#fff,stroke:#333,color:#000
-    style B fill:#fff,stroke:#333,color:#000
-    style C fill:#fff,stroke:#333,color:#000
-    style D fill:#fff,stroke:#333,color:#000
-    style E fill:#fff,stroke:#333,color:#000
-    style F fill:#fff,stroke:#333,color:#000
-    style G fill:#fff,stroke:#333,color:#000
-    style H fill:#fff,stroke:#333,color:#000
-```
+> 🔜 Planned — Q3–Q4 2026
 
 | Milestone | Status |
 |---|---|
-| Real task marketplace (nodes pick up meaningful tasks) | 🔜 Planned |
-| Advanced anti-cheat (behavioral analysis, pattern detection) | 🔜 Planned |
-| Performance-based rewards (uptime multipliers) | 🔜 Planned |
-| Node reputation scoring | 🔜 Planned |
-| Token integration — points-to-token conversion | 🔜 Planned |
+| DEX listing on Base (Uniswap / Aerodrome) | 🔜 Planned |
+| Advanced anti-cheat (ML-based pattern detection) | 🔜 Planned |
+| Performance-based reward multipliers | 🔜 Planned |
+| Node reputation leaderboard | 🔜 Planned |
+| Mobile node support (Android/Termux optimized) | 🔜 Planned |
+| Staking mechanism for node operators | 🔜 Planned |
 
 ---
 
 ## Phase 4 — Ecosystem
 
-> 🔮 Future
-
-```mermaid
-graph TD
-    A[Developer API] --> B[Third-Party Task Submitters]
-    B --> C[Node Network]
-    C --> D[On-Chain Reward Distribution]
-    D --> E[Decentralized Node Registry]
-    E --> F[Community Governance]
-    F --> G[Node Operator Voting]
-
-    style A fill:#fff,stroke:#333,color:#000
-    style B fill:#fff,stroke:#333,color:#000
-    style C fill:#fff,stroke:#333,color:#000
-    style D fill:#fff,stroke:#333,color:#000
-    style E fill:#fff,stroke:#333,color:#000
-    style F fill:#fff,stroke:#333,color:#000
-    style G fill:#fff,stroke:#333,color:#000
-```
+> 🔮 Future — 2027+
 
 | Milestone | Status |
 |---|---|
 | Developer API (third parties submit tasks to the network) | 🔮 Future |
 | Third-party platform integrations | 🔮 Future |
-| On-chain reward distribution (optional) | 🔮 Future |
-| Decentralized node registry | 🔮 Future |
-| Community governance for network parameters | 🔮 Future |
+| On-chain node registry | 🔮 Future |
+| Decentralized governance for network parameters | 🔮 Future |
+| Cross-chain expansion | 🔮 Future |
 
 ---
 
@@ -169,23 +102,23 @@ graph TD
 ```mermaid
 timeline
     title Nexora Full Timeline
-    section Q4 2024 · Phase 1 Foundation
+    section Q1 2026 · Phase 1 Foundation
         Completed : CLI Node
                   : FastAPI Backend
-                  : Reward System
+                  : NEXORA Token System
                   : Referral System
-                  : Basic Anti-Cheat
-    section Q1 2025 · Phase 2 Expansion
-        In Progress : VPS Deployment
-                    : Task System v2
-                    : Web Dashboard
+                  : Anti-Cheat Engine
+    section Q2 2026 · Phase 2 Expansion
+        In Progress : Web Dashboard
+                    : On-Chain Claim
+                    : ClaimDistributor Contract
                     : Public Beta
-    section Q2-Q3 2025 · Phase 3 Value Layer
-        Planned : Task Marketplace
+    section Q3-Q4 2026 · Phase 3 Value Layer
+        Planned : DEX Listing
                 : Advanced Anti-Cheat
                 : Performance Rewards
-                : Token Integration
-    section Q4 2025+ · Phase 4 Ecosystem
+                : Mobile Support
+    section 2027+ · Phase 4 Ecosystem
         Future : Developer API
                : Third-Party Integrations
                : Decentralized Expansion
